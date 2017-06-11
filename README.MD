@@ -1,5 +1,5 @@
 # Development stack with Docker, [PHP 7.1 FPM, MySQL 5.7, PhpMyAdmin]
-This is a simple stack for development for docker for multi site
+This is a simple stack for development based on docker for multi sites
 
 # How to use
 An user is created in the php container to avoid permissions problems with your host with guid uuid 1000:1000 (maybe you need to adapt this).
