@@ -19,7 +19,7 @@ Two important directories is shared from the host to the php container `./app:/u
 # Why i'm not using nginx and node as container ?
 
 I've alreay experienced a complicated issue with the nginx container and other tools (not the container himself but other tools).
-For the node container i've some tools that trigger from php container that trigger npm, gulp like composer install and other stuff.
+For the node container i've some tools from php container that trigger npm, gulp like composer install and other stuff.
 
 # Reminder
 
