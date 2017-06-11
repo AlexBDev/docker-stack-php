@@ -1,0 +1,46 @@
+version: '2'
+services:
+    maildev:
+        image: djfarrelly/maildev
+        ports:
+            - "1080:80"
+            - "1025:25"
+
+    mysql:
+        image: mysql:5.7
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=symfony
+            - MYSQL_PASSWORD=symfony
+        volumes:
+            - mysql-data:/var/lib/mysql:rw
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - "8888:80"
+        links:
+            - mysql
+        environment:
+            - PMA_HOST=mysql
+    php:
+        build:
+            context: ./docker/dockerfiles/php/71
+            args:
+                - user=${USER}
+        ports:
+            - "10137:10137" #blackfire
+            - "9000:9000" #xdebug
+            - "8080:80" #nginx
+        volumes:
+            - ./app:/usr/share/nginx/html:rw
+            - ./sites/:/etc/nginx/sites-enabled/
+        links:
+            - mysql
+            - maildev
+        depends_on:
+            - mysql
+            - maildev
+
+volumes:
+    mysql-data:
