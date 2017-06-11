@@ -2,7 +2,7 @@
 This is a simple stack for development based on docker for multi sites
 
 # How to use
-An user is created in the php container to avoid permissions problems with your host with guid uuid 1000:1000 (maybe you need to adapt this).
+A user is created in the php container to avoid permissions problems with your host with guid uuid 1000:1000 (maybe you need to adapt this).
 The password of the user is his name.
 
 NVM is installed from https://github.com/creationix/nvm you can set by default nvm and node version by passing `node_version` and `nvm_version` as argument to the php definition in `docker-compose.yml`
