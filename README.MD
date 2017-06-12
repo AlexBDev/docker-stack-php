@@ -10,11 +10,13 @@ NVM is installed from https://github.com/creationix/nvm you can set by default n
 Two important directories is shared from the host to the php container `./app:/usr/share/nginx/html` and `/sites/:/etc/nginx/sites-enabled/` you need to put your code under the `app` directory alongside the docker-compose.yml then add the nginx configuration to `sites` directory check the `example.site.conf`.
 
     root /usr/share/nginx/html/example.mysite/web/; (example.mysite is your dir code under app host directory app/example.mysite)
-    server_name example.mysite; (Add your domain name and also in your /etc/hosts or equivalent on your host with the ip php container 172.20.0.10)
+    server_name example.mysite; (Add your domain name and in your /etc/hosts or equivalent on your host with the ip php container 172.20.0.10)
 
- Then run `docker-compose up -d` enter to the php container and start nginx `sudo service nginx start`.
+> You can execute the bash script domain.sh to update dinamicaly the /etc/hosts file
 
- Go to http://example.mysite if your nginx configuration is good the website must be up.
+Then run `docker-compose up -d` enter to the php container and start nginx `sudo service nginx start`.
+
+Go to http://example.mysite if your nginx configuration is good the website must be up.
 
 # Why i'm not using nginx and node as container ?
 
