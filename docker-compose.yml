@@ -41,6 +41,15 @@ services:
         depends_on:
             - mysql
             - maildev
+        networks:
+          static-network:
+            ipv4_address: 172.20.0.10
+
+networks:
+  static-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
 
 volumes:
     mysql-data:
