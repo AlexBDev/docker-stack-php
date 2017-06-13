@@ -64,12 +64,10 @@ RUN rm /etc/nginx/sites-enabled/default
 COPY conf/php.ini /usr/local/etc/php/php.ini
 COPY conf/www.conf.default /usr/local/etc/php-fpm.d/www.conf.default
 COPY bin/composer /usr/local/bin/composer
-COPY script/run.sh /usr/local/bin/run.sh
-
-RUN chmod +x /usr/local/bin/run.sh
 
 RUN chown $user:$user /usr/local/bin/composer && chmod 775 /usr/local/bin/composer
 
+# Set password and add sudo group to new user
 RUN echo "$user:$user" | chpasswd
 RUN echo "root:root" | chpasswd
 RUN usermod -a -G sudo $user

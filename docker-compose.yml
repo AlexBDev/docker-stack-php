@@ -44,7 +44,6 @@ services:
         networks:
             static-network:
                 ipv4_address: 172.20.0.10
-        command: "/usr/local/bin/run.sh"
 
 networks:
   static-network:
