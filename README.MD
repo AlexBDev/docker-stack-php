@@ -4,7 +4,7 @@ This is a simple stack for development based on docker for multi sites
 
 ## How to use
 
-Add your nginx configuration file in sites directory, execute the `domain.sh` to update your /etc/hosts :boom: then run `docker-compose up -d` in you shell.
+Add your nginx configuration file in sites directory, execute the `domain.sh` to update your /etc/hosts :boom: then run `docker-compose up -d` enter to the php container and execute `sudo service nginx start`.
 
 Type the server_name you've setup in your nginx configuration, if your nginx configuration is good the website must be up.
 
@@ -30,7 +30,6 @@ For the node container i've some tools from php container that trigger npm, gulp
 ## Reminder
 
 - The php container has static ip 172.20.0.10.
-- You can add different services at startup in run.sh
 
 ### Package, tools, ...
 - php fpm 7.1
