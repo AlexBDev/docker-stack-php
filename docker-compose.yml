@@ -5,6 +5,8 @@ services:
         ports:
             - "1080:80"
             - "1025:25"
+        networks:
+            static-network:
 
     mysql:
         image: mysql:5.7
@@ -14,6 +16,8 @@ services:
             - MYSQL_PASSWORD=symfony
         volumes:
             - mysql-data:/var/lib/mysql:rw
+        networks:
+            static-network:
 
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -23,6 +27,8 @@ services:
             - mysql
         environment:
             - PMA_HOST=mysql
+        networks:
+            static-network:
     php:
         build:
             context: ./docker/dockerfiles/php/71
@@ -43,13 +49,13 @@ services:
             - maildev
         networks:
             static-network:
-                ipv4_address: 172.20.0.10
+                ipv4_address: 172.40.0.10
 
 networks:
   static-network:
     ipam:
       config:
-        - subnet: 172.20.0.0/24
+        - subnet: 172.40.0.0/24
 
 volumes:
     mysql-data:

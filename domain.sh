@@ -25,7 +25,7 @@ if ! confirm "The /etc/hosts file will be modified do you want to continue ?"; t
 fi
 
 # Static ip of PHP container
-IP_CONTAINER="172.20.0.10"
+IP_CONTAINER="172.40.0.10"
 
 if grep "#[[:space:]]\{0,\}$IP_CONTAINER" /etc/hosts > /dev/null; then
 	echo "$IP_CONTAINER is commented in your /etc/hosts"
