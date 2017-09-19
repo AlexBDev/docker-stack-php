@@ -8,15 +8,6 @@ Add your nginx configuration file in sites directory, execute the `domain.sh` to
 
 Type the server_name you've setup in your nginx configuration, if your nginx configuration is good the website must be up.
 
-## In depth
-
-Two important directories is shared from the host to the php container `./app:/usr/share/nginx/html` and `./sites/:/etc/nginx/sites-enabled/`.
-You need to put your code under the `app` directory like that `app/my_dir_to_code`.
-Add the nginx configuration to `sites` directory, this directory is shared to avoid a copy from the build of the image or copy the files into container from command (annoying).
-
-    root /usr/share/nginx/html/example.mysite/; (example.mysite is your dir code under app host directory app/example.mysite)
-    server_name example.mysite; (Add your domain name and in your /etc/hosts or equivalent on your host with the ip php container 172.20.0.10 or use the domain.sh script)
-
 ## Reminder
 
 - The nginx container has static ip 172.45.0.10
