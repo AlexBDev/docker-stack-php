@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     maildev:
         image: djfarrelly/maildev
@@ -29,18 +29,29 @@ services:
             - PMA_HOST=mysql
         networks:
             static-network:
+
+    nginx:
+        image: nginx:1.13
+        volumes:
+            - ./app:/usr/share/nginx/html
+            - ./sites:/etc/nginx/conf.d/
+        ports:
+            - "80:80"
+        links:
+            - php
+        depends_on:
+            - php
+        networks:
+            static-network:
+                ipv4_address: 172.45.0.10
+
     php:
         build:
             context: ./docker/dockerfiles/php/71
             args:
                 - user=${USER}
-        ports:
-            - "10137:10137" #blackfire
-            - "9000:9000" #xdebug
-            - "8080:80" #nginx
         volumes:
             - ./app:/usr/share/nginx/html:rw
-            - ./sites/:/etc/nginx/sites-enabled/
         links:
             - mysql
             - maildev
@@ -49,13 +60,12 @@ services:
             - maildev
         networks:
             static-network:
-                ipv4_address: 172.40.0.10
 
 networks:
   static-network:
-    ipam:
-      config:
-        - subnet: 172.40.0.0/24
+      ipam:
+          config:
+              - subnet: 172.45.0.0/24
 
 volumes:
     mysql-data:
