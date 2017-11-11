@@ -1,29 +1,41 @@
-# Development stack with Docker, [PHP 7.1 FPM, MySQL 5.7, PhpMyAdmin, nginx 1.13]
+# PHP stack under Docker
 
-This is a simple stack for development based on docker for multi sites
+PHP stack multi sites under Docker 
 
 ## How to use
 
-Add your nginx configuration file in sites directory, execute the `domain.sh` to update your /etc/hosts :boom: then run `docker-compose up -d` enter to the php container and execute `sudo service nginx start`.
+### Nginx
 
-Type the server_name you've setup in your nginx configuration, if your nginx configuration is good the website must be up.
+- Add your nginx configuration for different sites under sites directory, check the example example.site.conf
+- Execute the `domain.sh` to update your /etc/hosts
 
-## Reminder
+### Docker
 
-- The nginx container has static ip 172.45.0.10
+- To deal with permission between shared volumes with host and guest, you must run
 
-### Package, tools, ...
+```bash
+$ source user-permission.sh
+```
 
-- php fpm 7.1
-- nginx 1.13
-- mysql 5.7
-- maildev
-- phpmyadmin
-- composer
+- Run docker-compose.yml
+
+```bash
+$ docker-compose up -d
+```
+
+- Open your browser to http://example.mysite (or another configured domain name)
+
+### Stack
+
+- PHP-FPM 7.1 (composer)
+- NGINX 1.13
+- MySQL 5.7
+- Maildev
+- PhpMyAdmin
 
 ### Port
 
-- 8080:80 nginx
-- 1080:80 maildev front web
-- 1025:25 maildev smtp
-- 8888:80 phpmyadmin
+- 8080:80 NGINX (172.45.0.10)
+- 1080:80 Maildev front web
+- 1025:25 Maildev smtp
+- 8888:80 PhpMyAdmin

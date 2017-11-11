@@ -1,9 +1,16 @@
 FROM php:7.1-fpm
 
-ARG user=symfony
+
+ARG DSP_USER_USERNAME
+ARG DSP_USER_UID
+ARG DSP_USER_GID
+
 
 # Create user with home to work with permissions on files
-RUN adduser --gecos "" --disabled-password $user
+RUN addgroup --gid $DSP_USER_GID $DSP_USER_USERNAME
+RUN adduser --gecos "" --disabled-password --gid $DSP_USER_GID --uid $DSP_USER_UID $DSP_USER_USERNAME
+
+RUN TERM=xterm
 
 RUN apt-get clean && apt-get update
 
@@ -23,6 +30,8 @@ RUN apt-get install -y \
         libxrender1 \
         git \
         python
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
 RUN docker-php-ext-install -j$(nproc) \
         exif \
@@ -54,17 +63,18 @@ COPY conf/php.ini /usr/local/etc/php/php.ini
 COPY conf/www.conf.default /usr/local/etc/php-fpm.d/www.conf.default
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
 
-RUN chown $user:$user /usr/local/bin/composer && chmod 775 /usr/local/bin/composer
+RUN chown $DSP_USER_USERNAME:$DSP_USER_USERNAME /usr/local/bin/composer && chmod 775 /usr/local/bin/composer
 
 # Set password and add sudo group to new user
-RUN echo "$user:$user" | chpasswd
+RUN echo "$DSP_USER_USERNAME:$DSP_USER_USERNAME" | chpasswd
 RUN echo "root:root" | chpasswd
-RUN usermod -a -G sudo $user
 
-RUN echo "$user ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
+RUN usermod -a -G sudo $DSP_USER_USERNAME
 
-USER $user
+RUN echo "$DSP_USER_USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
 
-RUN echo "alias sf='php bin/console'\n"  >> /home/$user/.bashrc
+USER $DSP_USER_USERNAME
+
+RUN echo "alias sf='php bin/console'\n"  >> /home/$DSP_USER_USERNAME/.bashrc
 
 WORKDIR /usr/share/nginx/html

@@ -14,7 +14,7 @@ confirm()
     esac
 }
 
-# Make sure only root can run our script
+# Need to be root to access /etc/hosts file
 if [ "$(id -u)" != "0" ]; then
    echo "This script must be run as root" 1>&2
    exit 1
@@ -24,17 +24,17 @@ if ! confirm "The /etc/hosts file will be modified do you want to continue ?"; t
         exit 0
 fi
 
-# Static ip of PHP container
+# IP PHP container
 IP_CONTAINER="172.40.0.10"
 
 if grep "#[[:space:]]\{0,\}$IP_CONTAINER" /etc/hosts > /dev/null; then
 	echo "$IP_CONTAINER is commented in your /etc/hosts"
 elif ! grep "$IP_CONTAINER" /etc/hosts > /dev/null; then
 	echo "Add entry $IP_CONTAINER in /etc/hosts"
-	echo -e "\n#Docker stack php\n$IP_CONTAINER\n" >> /etc/hosts
+	echo -e "\n#Stack PHP Docker\n$IP_CONTAINER\n" >> /etc/hosts
 fi
 
-# Add domain name to /etc/hosts in sites dir
+# Add domain name to your /etc/hosts
 for DOMAIN_NAME in $(sed -n 's/server_name\(.*\);/\1/p' sites/*)
 do
 	printf "Domain name "
