@@ -2,6 +2,14 @@
 
 PHP stack multi sites under Docker 
 
+## Stack
+
+- PHP-FPM 7.1 (composer)
+- NGINX 1.13
+- MySQL 5.7
+- Maildev
+- PhpMyAdmin
+
 ## How to use
 
 ### Nginx
@@ -24,14 +32,6 @@ $ docker-compose up -d
 ```
 
 - Open your browser to http://example.mysite (or another configured domain name)
-
-### Stack
-
-- PHP-FPM 7.1 (composer)
-- NGINX 1.13
-- MySQL 5.7
-- Maildev
-- PhpMyAdmin
 
 ### Port
 
