@@ -34,9 +34,9 @@ services:
         build:
             context: ./dockerfiles/nginx
             args:
-                - DSP_USER_USERNAME=$DSP_USER_USERNAME
-                - DSP_USER_UID=$DSP_USER_UID
-                - DSP_USER_GID=$DSP_USER_GID
+                - DSP_USER_USERNAME
+                - DSP_USER_UID
+                - DSP_USER_GID
         volumes:
             - ./app:/usr/share/nginx/html
             - ./sites:/etc/nginx/conf.d/
@@ -54,9 +54,9 @@ services:
         build:
             context: ./dockerfiles/php
             args:
-                - DSP_USER_USERNAME=$DSP_USER_USERNAME
-                - DSP_USER_UID=$DSP_USER_UID
-                - DSP_USER_GID=$DSP_USER_GID
+                - DSP_USER_USERNAME
+                - DSP_USER_UID
+                - DSP_USER_GID
         volumes:
             - ./app:/usr/share/nginx/html:rw
         links:
